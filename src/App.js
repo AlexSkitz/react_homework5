@@ -1,14 +1,25 @@
-import React from "react";
-import ToDoGroups from "./Components/ToDoGroups";
-import ToDoList from "./Components/ToDoList";
-import ToDoFilter from './Components/ToDoFilters';
+import React, { useEffect } from "react";
+import { NavLink, Outlet } from "react-router-dom";
+import { loadLists } from './Store/actions';
+import { useDispatch } from 'react-redux';
+
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadLists());
+  }, []);
+
   return (
-    <div className="toDo">
-      <ToDoGroups />
-      <ToDoList />
-    </div>
-  )
+    <>
+      <div>
+        <NavLink to="/todo" className="nav-link">ToDo</NavLink>
+      </div>
+      <div className="container-sm">
+        <Outlet />
+      </div>
+    </>
+  );
 }
 
 export default App;
